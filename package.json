@@ -1,0 +1,28 @@
+{
+  "name": "rsi",
+  "version": "1.0.0",
+  "description": "this is first version of the website for RSI company",
+  "keywords": [
+    "carpet",
+    "pettreats"
+  ],
+  "license": "ISC",
+  "author": "Flora",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "micromodal": "^0.4.10",
+    "mongodb": "^6.13.1",
+    "mongoose": "^8.10.1",
+    "pug": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

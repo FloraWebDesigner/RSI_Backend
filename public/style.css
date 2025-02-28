@@ -1,0 +1,60 @@
+html, body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+
+/* Flexbox for Horizontal Layout */
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem; /* Spacing between items */
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group label{
+    font-size:small;
+  }
+
+.form-group label.block {
+font-weight: 600;
+font-size:small;
+margin-right: 2rem;
+}
+ 
+.current-menu {
+  background-color: #1a202c;
+}
+
+.menu li a:hover {
+    background-color: #1a202c;
+  }
+
+.menu-container,
+.heading-container{
+  position: sticky;
+}
+
+.heading-container{
+  top:0;
+  width: 100%;
+  z-index: 50;
+}
+
+.menu-container{
+  left:0;
+  top: 4rem;
+  width: 15rem;
+  min-height: calc(100vh - 4rem);
+}
+
+
+.content-container {
+  flex: 1;
+  overflow-y: auto; 
+  height: calc(100vh - 8rem); 
+}
+

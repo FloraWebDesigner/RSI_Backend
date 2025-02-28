@@ -1,0 +1,30 @@
+nav.heading-container.bg-gray-800
+  .mx-auto.max-w-7xl.px-2(class='sm:px-6 lg:px-8')
+    .relative.flex.h-16.items-center.justify-between
+      .absolute.inset-y-0.left-0.flex.items-center(class='sm:hidden')
+        // Mobile menu button
+        button.relative.inline-flex.items-center.justify-center.rounded-md.p-2.text-gray-400(type='button' class='hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset' aria-controls='mobile-menu' aria-expanded='false')
+          span.absolute(class='-inset-0.5')
+          span.sr-only Open main menu
+          
+            //- Icon when menu is closed.
+            //- Menu open: "hidden", Menu closed: "block"
+          svg.block.size-6(fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true' data-slot='icon')
+            path(stroke-linecap='round' stroke-linejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5')
+          //
+            Icon when menu is open.
+            Menu open: "block", Menu closed: "hidden"
+          svg.hidden.size-6(fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true' data-slot='icon')
+            path(stroke-linecap='round' stroke-linejoin='round' d='M6 18 18 6M6 6l12 12')
+      .flex.flex-1.items-center.justify-center(class='sm:items-stretch sm:justify-start')
+        .flex.shrink-0.items-center
+          img.h-8.w-auto(src='https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500' alt='Your Company')
+        .hidden(class='sm:ml-6 sm:block')
+          .flex.space-x-4
+            //- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
+            a.rounded-md.bg-gray-900.px-3.py-2.text-sm.font-medium.text-white(href='#' aria-current='page') RSI Company
+      .avatar.offline.flex.flex-row
+        .w-12.h-12.rounded-full.overflow-hidden
+          img(src="/img/Burhan.png" class="w-full h-full object-cover rounded-full")
+        .flex.shrink-0.items-center
+          p.px-3.text-sm.font-medium.text-white Welcome Burhan!

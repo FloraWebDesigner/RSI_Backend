@@ -1,0 +1,63 @@
+.flex.flex-col.p-4
+    h2.text-xl.font-bold.text-center.my-3 Business Overview
+    button.btn(onclick='my_modal_4.showModal()', class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 h-auto text-sm font-medium text-white text-center hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden")
+        i.fa-solid.fa-square-plus.mr-2
+        |   Add New Business
+
+    dialog#my_modal_4.modal(class='w-1/2 h-full rounded-lg')
+        .modal-box.max-w-8xl.p-3.rounded-sm(class='w-full')
+            h3.text-xl.font-bold.text-center.mb-2 Expand Your Business Map
+            form(method="POST", action="/business/add/submit" class="product-form-add")
+                .form-group
+                    label(for="ProductName").block.text-sm.text-slate-600 Business Name
+                    input#ProductName.w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm(type="text", name="ProductName", placeholder='Petzee', required)
+                .form-group
+                    label.block.mb-2.text-sm.text-slate-600.mr-4 Category
+                    each cat in categoryList
+                        label.flex.items-center.gap-1.mr-2(for=cat._id)
+                            input(type="checkbox", id=cat._id, name="Category[]", value=cat._id).bg-transparent.text-slate-700.text-sm
+                            | #{cat.categoryName}
+
+                .form-group
+                    label.block.mb-2.text-sm.text-slate-600 Origin
+                    each org in originList
+                        label.flex.items-center.gap-1.mr-2(for=org._id)
+                            input(type="checkbox", id=org._id, name="Origin[]", value=org._id).bg-transparent.text-slate-700.text-sm
+                            | #{org.originName}
+
+                .form-group
+                    label(for="Desc").block.text-sm.text-slate-600 Description
+                    textarea#Desc(name="Desc", placeholder="Input business description").w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm
+
+                .form-group
+                    label.block.mb-2.text-sm.text-slate-600 Raw Material
+                    each raw in rawMaterialList
+                        label.flex.items-center.gap-1.mr-2(for=raw._id)
+                            input(type="checkbox", id=raw._id, name="RawMaterial[]", value=raw._id).bg-transparent.text-slate-700.text-sm
+                            | #{raw.rawMaterialName}
+
+                .form-group
+                    label.block.mb-2.text-sm.text-slate-600 Type
+                    each type in typeList
+                        label.flex.items-center.gap-1.mr-2(for=type._id)
+                            input(type="checkbox", id=type._id, name="Type[]", value=type._id).bg-transparent.text-slate-700.text-sm
+                            | #{type.typeName}
+
+                .form-group
+                    label.block.mb-2.text-sm.text-slate-600 Color
+                    each cr in colorList
+                        label.flex.items-center.gap-1.mr-2(for=cr._id)
+                            input(type="checkbox", id=cr._id, name="Color[]", value=cr._id).bg-transparent.text-slate-700.text-sm
+                            | #{cr.colorName}
+
+                .form-group
+                    label.block.mb-2.text-sm.text-slate-600 Manufactoring Process
+                    each mp in manufactoringProcessList
+                        label.flex.items-center.gap-1.mr-2(for=mp._id)
+                            input(type="checkbox", id=mp._id, name="ManufactoringProcess[]", value=mp._id).bg-transparent.text-slate-700.text-sm
+                            | #{mp.manufactoringProcessName}
+                .flex.justify-center.gap-2.w-full
+                    button.btn(class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 h-auto text-sm font-medium text-white text-center hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden", type='submit')
+                        | Submit                
+                    button.btn(class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 h-auto text-sm font-medium text-white text-center hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden" type="button", onclick="my_modal_4.close()")
+                        | Cancel

@@ -1,0 +1,81 @@
+.content-container.flex.flex-row.flex-wrap.gap-3.h-auto.justify-between 
+    each p in productList
+        .relative.block.overflow-hidden.rounded-lg.border-2.border-red-500( class='sm:p-3 lg:p-5' data-type="product" style="width:49%")
+            span.absolute.inset-x-0.bottom-0(class='sm:flex sm:justify-between sm:gap-2')
+            .flex.gap-2.justify-between 
+                h2.text-lg.font-bold.text-gray-900(class='sm:text-xl') #{p.ProductName}
+                .text-red-500.flex.gap-3
+                    form(method="get", action="/product/edit")                   
+                        input(type="hidden", name="productId", value=p._id)
+                        //- input(type="hidden", name="productName", value=p.ProductName)
+                        //- input(type="hidden", name="categoryName", value=p.Category.categoryName)
+                        //- input(type="hidden", name="rawMaterialName", value=p.RawMaterial.rawMaterialName)
+                        //- input(type="hidden", name="originName", value=p.ProductName)
+                        //- input(type="hidden", name="typeName", value=p.ProductName)
+                        //- input(type="hidden", name="colorName", value=p.ProductName)
+                        //- input(type="hidden", name="manufactoringProcessName", value=p.ProductName)
+                        button(type="submit" onclick='my_modal_5.showModal()')
+                            i.fa-solid.fa-pencil
+                    form(method="get", action="/product/delete")
+                        input(type="hidden", name="productId", value=p._id)
+                        button(type="submit")
+                            i.fa-solid.fa-trash
+            
+            p.text-sm.font-medium.text-gray-600
+                each cat in p.Category
+                    span.text-base(data-field="categoryName", data-id=p._id) #{cat.categoryName}
+
+            textarea.mt-1.w-full(name="productDesc" data-field="productDesc", data-id=p._id).text-sm.text-pretty.text-gray-500 #{p.Desc}
+
+            dl.mt-2.flex.gap-4(class='sm:gap-6')
+                .flex.flex-col-reverse
+                    dt.text-sm.font-medium.text-gray-600.flex.flex-wrap 
+                        if p.Origin.length
+                            each org in p.Origin
+                                span.badge.border-2.border-red-100.bg-red-100.rounded-full.px-2(data-field="originName", data-id=p._id).mr-2 #{org.originName}
+                        else
+                            span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
+                    dd.text-xs.text-gray-500 Origin: 
+
+            dl.mt-2.flex.gap-4(class='sm:gap-6')
+                .flex.flex-col-reverse
+                    dt.text-sm.font-medium.text-gray-600
+                        if p.RawMaterial.length
+                            each raw in p.RawMaterial
+                                span.badge.border-2.border-red-100.bg-red-100.rounded-full.px-2(data-field="rawMaterialName", data-id=p._id).mr-2 #{raw.rawMaterialName}
+                        else 
+                            span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
+                    dd.text-xs.text-gray-500.mb-1 Raw Material:
+
+            dl.mt-2.flex.gap-4(class='sm:gap-6')
+                .flex.flex-col-reverse
+                    dt.text-sm.font-medium.text-gray-600 
+                        if p.Type.length
+                            each ty in p.Type
+                                span.badge.border-2.border-red-100.bg-red-100.rounded-full.px-2(data-field="typeName", data-id=p._id).mr-2 #{ty.typeName}
+                        else 
+                            span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
+                    dd.text-xs.text-gray-500.mb-1 Type: 
+
+            dl.mt-2.flex.gap-4(class='sm:gap-6')
+                .flex.flex-col-reverse
+                    dt.text-sm.font-medium.text-gray-600
+                        if p.Color.length 
+                            each cr in p.Color
+                                span.badge.border-2.border-red-100.bg-red-100.rounded-full.px-2(data-field="colorName", data-id=p._id).mr-2 #{cr.colorName}
+                        else 
+                            span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
+                    dd.text-xs.text-gray-500.mb-1 Color:
+            dl.mt-2.flex.gap-4(class='sm:gap-6')
+                .flex.flex-col-reverse
+                    dt.text-sm.font-medium.text-gray-600
+                        if p.ManufactoringProcess.length 
+                            each mp in p.ManufactoringProcess
+                                span.badge.border-2.border-red-100.bg-red-100.rounded-full.px-2(data-field="manufactoringProcessName", data-id=p._id).mr-2 #{mp.manufactoringProcessName}
+                        else 
+                            span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
+                    dd.text-xs.text-gray-500.mb-1 Manufactoring Process
+
+
+    
+                    

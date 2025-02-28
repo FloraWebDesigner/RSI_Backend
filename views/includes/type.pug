@@ -1,0 +1,29 @@
+.overflow-x-auto.relative.flex.flex-col.my-2.bg-white.shadow-sm.border-2.border-dark-200.rounded-lg.p-3.shadow-lg.w-60
+  table.bg-white.text-sm.w-full(class='dark:divide-gray-700 dark:bg-gray-900')
+    thead.text-left
+      tr
+        th.px-2.py-2.font-medium.whitespace-nowrap.text-gray-900.font-bold(class='dark:text-white' colspan="2") Type List
+            span.ml-2.inline-flex.items-center.justify-center.rounded-full.bg-red-100.px-2 #{typeCount}
+    tbody(class='dark:divide-gray-700')
+        tr
+            td.px-2.py-2.font-medium.whitespace-nowrap.text-gray-900(colspan="2")
+                form(method="post", action="/type/add/submit" class="flex gap-2")
+                    input(type="text", name="typeName" class="py-1 px-2 border border-2 border-grey-700 w-full")
+                    button(type="submit" class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 text-sm font-medium text-white hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden") Add
+        each t in typeList
+            tr(data-type="type")
+                td.px-2.py-1.font-medium.whitespace-nowrap.text-gray-900(class='dark:text-white', style="width: 70%", contenteditable="true", data-field="typeName", data-id=t._id)
+                    | #{t.typeName}
+                td.px-4.py-1.whitespace-nowrap.text-red-500.flex.gap-2.justify-end
+                    form(method="post", action="/type/edit/submit" class="table-form edit-form")                   
+                        input(type="hidden", name="typeId", value=t._id)
+                        input(type="hidden", name="typeName", value=t.typeName)
+                        button(type="submit")
+                            i.fa-solid.fa-pencil
+                    form(method="get", action="/type/delete")
+                        input(type="hidden", name="typeId", value=t._id)
+                        button(type="submit")
+                            i.fa-solid.fa-trash
+        tr 
+            td.px-2.py-2.font-medium.whitespace-nowrap.text-gray-900(colspan="2")
+                a(href="/api/type/list" class="inline-block w-full rounded-sm border border-red-600 bg-transparent text-center py-1 text-sm font-medium text-red-600 hover:border-red-500 hover:bg-red-600 hover:text-white focus:ring-3 focus:outline-none") View API
