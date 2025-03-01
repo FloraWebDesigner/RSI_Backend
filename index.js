@@ -204,7 +204,7 @@ app.get("/list", async (request, response) => {
 );
 
 app.post("/origin/add/submit", async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     //get form data 
     let newOrigin = {
         "originName": request.body.originName,
@@ -230,7 +230,7 @@ app.post("/origin/edit/submit", async (request, response) => {
 })
 
 app.post("/color/add/submit", async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     //get form data 
     let newColor = {
         "colorName": request.body.colorName,
@@ -250,13 +250,12 @@ app.post("/color/edit/submit", async (request, response) => {
     //get the _id and set it as a JSON object to be used for the filter
     let id = request.body.colorId;
     let updatedColor = { colorName: request.body.colorName };
-    console.log('Request body:', request.body);
     await colorFunction.updateColor(id, updatedColor);
     response.json({ success: true, message: 'Color updated successfully' });
 })
 
 app.post("/type/add/submit", async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     //get form data 
     let newType = {
         "typeName": request.body.typeName,
@@ -276,13 +275,12 @@ app.post("/type/edit/submit", async (request, response) => {
     //get the _id and set it as a JSON object to be used for the filter
     let id = request.body.typeId;
     let updatedType = { typeName: request.body.typeName };
-    console.log('Request body:', request.body);
     await typeFunction.updateType(id, updatedType);
     response.json({ success: true, message: 'Type updated successfully' });
 })
 
 app.post("/rawmaterial/add/submit", async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     //get form data 
     let newRawMaterial = {
         "rawMaterialName": request.body.rawMaterialName,
@@ -302,13 +300,13 @@ app.post("/rawmaterial/edit/submit", async (request, response) => {
     //get the _id and set it as a JSON object to be used for the filter
     let id = request.body.rawMaterialId;
     let updatedRawMaterial = { rawMaterialName: request.body.rawMaterialName };
-    console.log('Request body:', request.body);
+    // console.log('Request body:', request.body);
     await rawMaterialFunction.updateRawMaterial(id, updatedRawMaterial);
     response.json({ success: true, message: 'Raw Material updated successfully' });
 })
     
 app.post("/category/add/submit", async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     //get form data 
     let newCategory = {
         "categoryName": request.body.categoryName,
@@ -328,13 +326,12 @@ app.post("/category/edit/submit", async (request, response) => {
     //get the _id and set it as a JSON object to be used for the filter
     let id = request.body.categoryId;
     let updatedCategory = { categoryName: request.body.categoryName };
-    console.log('Request body:', request.body);
     await categoryFunction.updateCategory(id, updatedCategory);
     response.json({ success: true, message: 'Category updated successfully' });
 })
 
 app.post("/manufactoringprocess/add/submit", async (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     //get form data 
     let newManufactory = {
         "manufactoringProcessName": request.body.manufactoringProcessName,
@@ -354,14 +351,13 @@ app.post("/manufactoringprocess/edit/submit", async (request, response) => {
     //get the _id and set it as a JSON object to be used for the filter
     let id = request.body.manufactoringProcessId;
     let updateManufactoringProcess = { manufactoringProcessName: request.body.manufactoringProcessName };
-    console.log('Request body:', request.body);
     await manufactoringProcessFunction.updateManufactoringProcess(id, updateManufactoringProcess);
     response.json({ success: true, message: 'manufactoringProcess updated successfully' });
 })
     
 
 app.post("/business/add/submit", async (request, response) => {
-    console.log("project ADD: ",request.body);
+    // console.log("project ADD: ",request.body);
     //get form data 
     let newProduct = {
         "ProductName": request.body.ProductName || "",
@@ -375,8 +371,6 @@ app.post("/business/add/submit", async (request, response) => {
         CreatedDate: new Date()
     };
 
-    console.log("New Product Data:", newProduct);
-
     await productFunction.addProduct(newProduct);
     response.redirect("/");
 });
@@ -387,14 +381,51 @@ app.get("/product/delete", async (request, response) => {
     response.redirect("/");
 });
 
-app.get("/product/edit", async (request, response) => {
-    if (request.query.productId) {
-        let businessEdit = await productFunction.getOneProduct(request.query.productId);
-        return response.json(businessEdit);
-    } else {
-    return response.status(400).json({ error: "Product ID is required" });
-}
+
+app.get("/business/edit/:productId", async (request, response) => { 
+    const productId = request.params.productId; 
+   console.log("Received productId:", productId);
+    if (!productId) {
+        return response.status(400).json({ error: "Product ID is required" });
+    }
+
+    let productData = await productFunction.getOneProduct(productId);
+    // console.log("Fetched productData:", productData);
+
+    if (!productData) {
+        return response.status(404).json({ error: "Product not found" });
+    }
+
+    return response.json(productData);
 });
+
+
+app.post("/business/edit/submit", async (request, response) => {
+    console.log("project EDIT: ",request.body);
+    let id = request.body.productId;
+    let idFilter = { _id: new ObjectId(id) };
+    console.log(id);
+    let updatedProduct = {
+        "ProductName": request.body.ProductName || "",
+        "Category": Array.isArray(request.body.Category) ? request.body.Category.map(id => new mongoose.Types.ObjectId(id)) : [],
+        "RawMaterial": Array.isArray(request.body.RawMaterial) ? request.body.RawMaterial.map(id => new mongoose.Types.ObjectId(id)) : [],
+        "Desc": request.body.Desc || "",
+        "Origin": Array.isArray(request.body.Origin) ? request.body.Origin.map(id => new mongoose.Types.ObjectId(id)) : [],
+        "Type": Array.isArray(request.body.Type) ? request.body.Type.map(id => new mongoose.Types.ObjectId(id)) : [],
+        "Color": Array.isArray(request.body.Color) ? request.body.Color.map(id => new mongoose.Types.ObjectId(id)) : [],
+        "ManufactoringProcess": Array.isArray(request.body.ManufactoringProcess) ? request.body.ManufactoringProcess.map(id => new mongoose.Types.ObjectId(id)) : [],
+        CreatedDate: new Date()
+    };    
+
+    // console.log(updatedProduct);
+
+        await productFunction.updateProduct(idFilter, updatedProduct);
+        response.redirect("/");
+
+});
+
+
+
 
 
 //set up server listening

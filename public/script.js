@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOMContentLoaded fired!");
-
+//   console.log("DOMContentLoaded loaded!");
   document.querySelectorAll('.table-form').forEach(form => {
       form.addEventListener('submit', function (event) {
           event.preventDefault(); 
@@ -59,99 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOMContentLoaded fired!");
-
-  document.querySelectorAll('.product-form').forEach(form => {
-      form.addEventListener('submit', function (event) {
-          event.preventDefault();
-
-          // Loop through all editable fields and collect their values
-          form.closest('tr').querySelectorAll('[contenteditable]').forEach(cell => {
-              let fieldName = cell.getAttribute("data-field");
-              let hiddenInput = form.querySelector(`input[name="${fieldName}"]`);
-              
-              if (hiddenInput) {
-                  hiddenInput.value = cell.innerText.trim();
-              }
-          });
-
-          // Collect selected checkbox values
-          form.closest('tr').querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
-              let fieldName = checkbox.getAttribute('name');
-              let hiddenInput = form.querySelector(`input[name="${fieldName}"]`);
-              
-              if (hiddenInput) {
-                  // Append selected value(s) to the hidden input
-                  hiddenInput.value += checkbox.value + ",";
-              }
-          });
-
-          // Create FormData and submit
-          let formData = new FormData(form);
-          formData.forEach((value, key) => {
-              console.log(`FormData entry: ${key} = ${value}`);
-          });
-
-          fetch(form.action, {
-              method: form.method,
-              body: new URLSearchParams(formData),
-              headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-              },
-          })
-          .then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  window.location.href = "/list";  // Redirect on success
-              } else {
-                  alert("Update failed! " + (data.message || ""));
-              }
-          })
-          .catch(error => {
-              console.error("Form submission failed:", error);
-          });
-      });
-  });
-
-  // Handle blur for inline editing
-  document.addEventListener('blur', function (event) {
-      if (event.target.matches('td[contenteditable]')) {
-          let fieldName = event.target.getAttribute("data-field");
-          let form = event.target.closest('tr').querySelector('.edit-form');
-          let hiddenInput = form.querySelector(`input[name="${fieldName}"]`);
-          if (hiddenInput) {
-              hiddenInput.value = event.target.innerText.trim();
-          }
-      }
-  }, true);
-
-  // Handle origin field click and show checkboxes for selection
-  document.querySelectorAll('[data-field="origin"]').forEach(cell => {
-      cell.addEventListener('click', function () {
-          let fieldName = cell.getAttribute("data-field");
-          let form = cell.closest('tr').querySelector('.edit-form');
-
-          // Dynamically render checkboxes for multiple options
-          const origins = ['Origin 1', 'Origin 2', 'Origin 3']; // Example origins, replace with dynamic data if needed
-          let checkboxHtml = origins.map(origin => {
-              return `<label>
-                        <input type="checkbox" name="origin" value="${origin}" /> ${origin}
-                      </label><br/>`;
-          }).join('');
-
-          // Display checkboxes inside a modal or a dropdown next to the field
-          let checkboxContainer = document.createElement('div');
-          checkboxContainer.innerHTML = checkboxHtml;
-          form.querySelector('.checkbox-container').appendChild(checkboxContainer);
-      });
-  });
-});
-
-
-
-  document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("my_modal_4");
     if (!modal) {
       console.error("Modal not found! Check your HTML structure.");
@@ -175,40 +82,180 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
+
+document.querySelectorAll("button[data-id]").forEach(button => {
+    button.addEventListener("click", function() {
+
+        console.log("Button clicked, product ID: ", this.getAttribute('data-id'));
+        const productId = this.getAttribute('data-id');
+        console.log("product ID :",productId);
+        if (this.classList.contains("product-edit")) {
+            console.log("Edit button clicked, fetching product data...");
+            fetchProductData(productId); 
+        }
+    });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("my_modal_5");
-    if (!modal) {
-      console.error("Modal not found! Check your HTML structure.");
-      return;
-  }
-    const openButton = document.querySelector("button[onclick='my_modal_5.showModal()']");
-    const closeButton = modal.querySelector("button[onclick='my_modal_5.close()']");
-      
-    openButton.addEventListener("click", function () {
-      modal.showModal();
-    });
-  
-    closeButton.addEventListener("click", function () {
-      modal.close();
-    });
-  
-    modal.addEventListener("click", function (event) {
-      if (event.target === modal) {
-        modal.close();
-      }
-    });
-  });
+    if (modal) {
+        console.log("Modal element exists.");
+    } else {
+        console.error("Modal element not found on page load.");
+    }
+});
 
+async function fetchProductData(productId) { 
 
+        let response = await fetch(`/business/edit/${productId}`);
+        if (!response.ok) throw new Error("Failed to load product data");
 
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.menu li a').forEach(function(item) {
-      item.addEventListener('click', function() {
-        document.querySelectorAll('.menu li a').forEach(function(link) {
-          link.classList.remove('current-menu');
+        let productData = await response.json();
+        console.log("mydata: ", productData);
+
+        const productIdInput = document.getElementById("editProductId");
+        if (productIdInput) {
+            productIdInput.value = productId;  
+            console.log("Product ID set:", productIdInput.value);
+        } else {
+            console.error("Product ID input not found!");
+        }
+
+        const modal = document.getElementById("my_modal_5");
+        if (!modal) {
+            console.error("Modal not found.");
+            return;
+        }
+
+        console.log("Product Name: ", productData.ProductName);
+        console.log("Product Description: ", productData.Desc);
+
+        const productNameInput = document.getElementById('EditProductName');
+        if (productNameInput) {
+            productNameInput.value = productData.ProductName || "";
+            console.log("ProductName Input Value Set: ", productNameInput.value);
+        } else {
+            console.error("ProductName Input not found!");
+        }
+
+        const descTextarea = document.getElementById("EditDesc");
+        if (descTextarea) {
+            descTextarea.value = productData.Desc || "";
+            console.log("Desc Textarea Value Set: ", descTextarea.value);
+        } else {
+            console.error("Desc Textarea not found!");
+        }
+
+        fillCheckboxes("Category", productData.Category || []);
+        fillCheckboxes("Origin", productData.Origin || []);
+        fillCheckboxes("RawMaterial", productData.RawMaterial || []);
+        fillCheckboxes("Type", productData.Type || []);
+        fillCheckboxes("Color", productData.Color || []);
+        fillCheckboxes("ManufactoringProcess", productData.ManufactoringProcess || []);
+
+        modal.showModal();
+    }
+
+    function fillCheckboxes(fieldName, fieldValues) {
+        const checkboxes = document.querySelectorAll(`input[name="${fieldName}[]"]`);
+        checkboxes.forEach(checkbox => {
+            console.log("Checking checkbox:", checkbox);
+            console.log("Field values:", fieldValues);
+            const isChecked = fieldValues.some(field => field._id === checkbox.value);
+            checkbox.checked = isChecked;
+            console.log(`Checkbox for ${fieldName} (ID: ${checkbox.id}) - Checked: ${isChecked}`);
         });
-        item.classList.add('current-menu');
-      });
+    }
+    
+    
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("my_modal_5");
+    const closeButton = modal.querySelector("button[onclick='closeEditModal()']");
+
+    if (modal && closeButton) {
+        closeButton.addEventListener("click", function () {
+            modal.close();
+        });
+
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                modal.close();
+            }
+        });
+    }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".product-form-edit").addEventListener("submit", async function(e) {
+        e.preventDefault(); 
+        
+        const formData = new FormData(this);
+        
+        if (!formData.get("productId")) {
+            const hiddenProductId = document.getElementById("editProductId")?.value;
+            if (hiddenProductId) {
+                formData.set("productId", hiddenProductId);
+                console.log("Manually set productId:", hiddenProductId);
+            } else {
+                console.error("Error: productId is missing!");
+                return;
+            }
+        }
+
+        const multiSelectFields = ["Category[]", "RawMaterial[]", "Origin[]", "Type[]", "Color[]", "ManufactoringProcess[]"];
+        
+        const data = Object.fromEntries(formData.entries());
+
+        multiSelectFields.forEach(field => {
+            data[field.replace("[]", "")] = formData.getAll(field); 
+        });
+
+        console.log("Submitting data:", data);
+
+        try {
+            let response = await fetch('/business/edit/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update product");
+            }
+
+            // let updatedProduct = await response.json();
+            // console.log("Product updated:", updatedProduct);
+            if (response.redirected) {
+                window.location.href = response.url;
+                return;
+            }
+
+            document.getElementById("my_modal_5").close();
+            // location.reload(); 
+
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
+    });
+
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    let currentPath = window.location.pathname; 
+    
+    document.querySelectorAll('.menu a').forEach(function(link) {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('current-menu');
+      } else {
+        link.classList.remove('current-menu'); 
+      }
     });
   });
   

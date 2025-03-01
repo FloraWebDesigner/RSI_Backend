@@ -5,17 +5,13 @@
             .flex.gap-2.justify-between 
                 h2.text-lg.font-bold.text-gray-900(class='sm:text-xl') #{p.ProductName}
                 .text-red-500.flex.gap-3
-                    form(method="get", action="/product/edit")                   
+                    form                
                         input(type="hidden", name="productId", value=p._id)
-                        //- input(type="hidden", name="productName", value=p.ProductName)
-                        //- input(type="hidden", name="categoryName", value=p.Category.categoryName)
-                        //- input(type="hidden", name="rawMaterialName", value=p.RawMaterial.rawMaterialName)
-                        //- input(type="hidden", name="originName", value=p.ProductName)
-                        //- input(type="hidden", name="typeName", value=p.ProductName)
-                        //- input(type="hidden", name="colorName", value=p.ProductName)
-                        //- input(type="hidden", name="manufactoringProcessName", value=p.ProductName)
-                        button(type="submit" onclick='my_modal_5.showModal()')
+                        button(type="button", data-id=p._id, class="product-edit")
                             i.fa-solid.fa-pencil
+
+                    include business-edit.pug
+
                     form(method="get", action="/product/delete")
                         input(type="hidden", name="productId", value=p._id)
                         button(type="submit")
@@ -75,6 +71,8 @@
                         else 
                             span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
                     dd.text-xs.text-gray-500.mb-1 Manufactoring Process
+
+
 
 
     
