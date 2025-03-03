@@ -1,5 +1,8 @@
 # RSI Project Backend - Data Management
 
+## Deployed Link:
+https://rsi-backend-us1f.onrender.com/
+
 ## Project Overview
 This project provides backend data update functionality for the RSI project. Using Node.js and the Pug template engine, combined with a MongoDB database, it implements CRUD operations for `category`, `type`, `manufacturing process`, `material`, `origin`, and `color` data. Based on this information, it also generates and manages `business card` data.
 
