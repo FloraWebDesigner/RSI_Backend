@@ -7,6 +7,7 @@ This project provides backend data update functionality for the RSI project. Usi
 - **Backend Framework**: Node.js
 - **Template Engine**: Pug
 - **Database**: MongoDB
+- **Style**: Tailwind
 
 ## Key Features
 - **CRUD Operations**:
