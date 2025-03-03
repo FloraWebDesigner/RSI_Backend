@@ -1,6 +1,6 @@
-.content-container.flex.flex-row.flex-wrap.gap-3.h-auto.justify-between 
+.content-container.flex.flex-row.flex-wrap.px-4.h-auto.justify-between 
     each p in productList
-        .relative.block.overflow-hidden.rounded-lg.border-2.border-red-500( class='sm:p-3 lg:p-5' data-type="product" style="width:49%")
+        .relative.block.overflow-hidden.rounded-lg.border-2.border-red-500( class='lg:p-5 w-[48%] md:w-[48%] sm:w-full' data-type="product")
             span.absolute.inset-x-0.bottom-0(class='sm:flex sm:justify-between sm:gap-2')
             .flex.gap-2.justify-between 
                 h2.text-lg.font-bold.text-gray-900(class='sm:text-xl') #{p.ProductName}
@@ -71,9 +71,3 @@
                         else 
                             span.badge.border-2.border-gray-100.bg-gray-100.rounded-full.px-2 none
                     dd.text-xs.text-gray-500.mb-1 Manufactoring Process
-
-
-
-
-    
-                    

@@ -425,9 +425,6 @@ app.post("/business/edit/submit", async (request, response) => {
 });
 
 
-
-
-
 //set up server listening
 app.listen(port, () => {
 console.log(`Listening on http://localhost:${port}`);

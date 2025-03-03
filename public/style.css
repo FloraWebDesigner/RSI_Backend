@@ -58,3 +58,19 @@ margin-right: 2rem;
   height: calc(100vh - 8rem); 
 }
 
+.relative.block {
+  width: 49%;
+}
+
+@media (max-width: 768px) {
+  
+  .content-container{
+    row-gap: 1.5rem;
+  }
+  
+  .relative.block {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+}
