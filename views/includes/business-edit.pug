@@ -7,8 +7,10 @@ dialog#my_modal_5.modal(class='w-1/2 h-full rounded-lg')
             input#editProductId(type="hidden", name="productId")
             .form-group
                 label(for="ProductName").block.text-sm.text-slate-600 Business Name
-                input#EditProductName.w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm(type="text", name="ProductName", placeholder='Petzee')
-
+                input#EditProductName.w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm(type="text", name="ProductName")
+            .form-group
+                label(for="ProductLink").block.text-sm.text-slate-600 Website Link
+                input#EditProductLink.w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm(type="text", name="ProductLink")
             .form-group
                 label.block.mb-2.text-sm.text-slate-600.mr-4 Category
                 each catEdit in categoryList
@@ -57,6 +59,6 @@ dialog#my_modal_5.modal(class='w-1/2 h-full rounded-lg')
 
             .flex.justify-center.gap-2.w-full
                 button.btn(class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 h-auto text-sm font-medium text-white text-center hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden", type='submit')
-                    | Submit                
+                    | Update                
                 button.btn(class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 h-auto text-sm font-medium text-white text-center hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden" type="button", onclick="closeEditModal()")
                     | Cancel

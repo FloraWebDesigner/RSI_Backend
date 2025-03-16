@@ -129,6 +129,7 @@ async function fetchProductData(productId) {
         }
 
         console.log("Product Name: ", productData.ProductName);
+        console.log("Product Link: ", productData.ProductLink);
         console.log("Product Description: ", productData.Desc);
 
         const productNameInput = document.getElementById('EditProductName');
@@ -137,6 +138,13 @@ async function fetchProductData(productId) {
             console.log("ProductName Input Value Set: ", productNameInput.value);
         } else {
             console.error("ProductName Input not found!");
+        }
+        const productLinkInput = document.getElementById('EditProductLink');
+        if (productLinkInput) {
+            productLinkInput.value = productData.ProductLink || "";
+            console.log("ProductLink Input Value Set: ", productLinkInput.value);
+        } else {
+            console.error("ProductLink Input not found!");
         }
 
         const descTextarea = document.getElementById("EditDesc");

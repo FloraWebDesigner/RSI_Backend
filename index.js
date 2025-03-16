@@ -360,6 +360,7 @@ app.post("/business/add/submit", async (request, response) => {
     //get form data 
     let newProduct = {
         "ProductName": request.body.ProductName || "",
+        "ProductLink": request.body.ProductLink || "",
         "Category": Array.isArray(request.body.Category) ? request.body.Category : (request.body.Category ? [request.body.Category] : []),
         "RawMaterial":Array.isArray(request.body.RawMaterial) ? request.body.RawMaterial : (request.body.RawMaterial ? [request.body.RawMaterial] : []),
         "Desc":request.body.Desc || "",
@@ -406,6 +407,7 @@ app.post("/business/edit/submit", async (request, response) => {
     console.log(id);
     let updatedProduct = {
         "ProductName": request.body.ProductName || "",
+        "ProductLink": request.body.ProductLink || "",
         "Category": Array.isArray(request.body.Category) ? request.body.Category.map(id => new mongoose.Types.ObjectId(id)) : [],
         "RawMaterial": Array.isArray(request.body.RawMaterial) ? request.body.RawMaterial.map(id => new mongoose.Types.ObjectId(id)) : [],
         "Desc": request.body.Desc || "",

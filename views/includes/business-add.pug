@@ -3,7 +3,6 @@
     button.btn(onclick='my_modal_4.showModal()', class="inline-block rounded-sm border border-red-600 bg-red-600 px-2 py-1 h-auto text-sm font-medium text-white text-center hover:bg-transparent hover:text-red-600 focus:ring-3 focus:outline-hidden")
         i.fa-solid.fa-square-plus.mr-2
         |   Add New Business
-
     dialog#my_modal_4.modal(class='w-1/2 h-full rounded-lg')
         .modal-box.max-w-8xl.p-3.rounded-sm(class='w-full')
             h3.text-xl.font-bold.text-center.mb-2 Expand Your Business Map
@@ -11,6 +10,9 @@
                 .form-group
                     label(for="ProductName").block.text-sm.text-slate-600 Business Name
                     input#ProductName.w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm(type="text", name="ProductName", placeholder='Petzee', required)
+                .form-group
+                    label(for="ProductLink").block.text-sm.text-slate-600 Website Link
+                    input#ProductName.w-full.bg-transparent.text-slate-700.text-sm.border.border-slate-200.rounded-md.px-3.py-2.transition.duration-300.ease.shadow-sm(type="text", name="ProductLink", placeholder='https://www.petzee.ca/', required)
                 .form-group
                     label.block.mb-2.text-sm.text-slate-600.mr-4 Category
                     each cat in categoryList

@@ -16,6 +16,7 @@ const {ManufactoringProcess} = manufactoringProcessFunction;
 
 const ProductSchema = new mongoose.Schema({
     ProductName: String,
+    ProductLink: String,
     Category:[{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
     RawMaterial:[{ type: mongoose.Schema.Types.ObjectId, ref: "RawMaterial" }],
     Desc: String,
@@ -59,6 +60,7 @@ async function initializeProducts() {
     const productList = [
         {
             ProductName: "Template Product Name",
+            ProductLink: "Template Product link",
             Category: [Category._id],
             RawMaterial: [RawMaterial._id],
             Desc: "Template Description",
@@ -102,6 +104,7 @@ async function addProduct(newProduct) {
 
     let productData = {
         ProductName: newProduct.ProductName,
+        ProductLink: newProduct.ProductLink,
         Category: categories.map(category => category._id),
         RawMaterial: rawMaterials.map(rawMaterial => rawMaterial._id), 
         Desc: newProduct.Desc,
@@ -176,6 +179,7 @@ async function updateProduct(filter,updatedProduct) {
 
     let updateFields = {
         "ProductName": updatedProduct.ProductName,
+        "ProductLink": updatedProduct.ProductLink,
         "Category": categories.map(category => category._id),
         "RawMaterial": rawMaterials.map(rawMaterial => rawMaterial._id), 
         "Desc": updatedProduct.Desc,
