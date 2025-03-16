@@ -3,7 +3,6 @@ import path from "path";
 import dotenv from "dotenv";
 import { ObjectId } from "mongodb";
 import cors from 'cors';
-import { dirname } from 'path'; 
 import { fileURLToPath } from 'url';
 import mongoose from "mongoose"; 
 import colorFunction from "./modules/color.js";
@@ -17,7 +16,7 @@ import manufactoringProcessFunction from "./modules/manufactoringProcess.js";
 
 //set up Express object and port
 const app = express();
-const port = process.env.PORT || "8887";
+const port = process.env.PORT || "8888";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
