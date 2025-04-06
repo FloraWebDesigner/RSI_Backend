@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import db from "./db.js";
-import { ObjectId } from "mongodb";
 
 const CategorySchema = new mongoose.Schema({
     categoryName: String,
@@ -59,7 +58,6 @@ async function reset() {
     await db();
     await Category.deleteMany({});
 }
-
 
 const categoryFunction = {
     getCategories,

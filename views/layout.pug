@@ -11,12 +11,12 @@ html(lang="en")
         include includes/header.pug
         main.h-auto.flex.flex-row
             include includes/menu.pug 
-            .flex.flex-col.gap-2.justify-center.px-4.w-full
+            .flex.flex-col.justify-start.px-4.w-full.gap-5
                 .grow
                     include includes/business-add.pug
                     //- .flex.flex-col.flex-wrap.gap-3.px-4
                 .grow
                     include includes/product.pug
-        footer.mt-2.w-full
+        footer.w-full.py-0.my-0
             p &copy; 2025 RSI Backend Data Management. All rights reserved.
         script(src="/script.js" type="module")

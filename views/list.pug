@@ -10,14 +10,15 @@ html(lang="en")
     body.dark.h-screen
         include includes/header.pug
         main.h-auto.flex.flex-row
-            include includes/menu.pug 
-            .flex.flex-row.flex-wrap.my-2.justify-evenly
-                include includes/origin.pug
-                include includes/color.pug
-                include includes/type.pug
-                include includes/rawMaterial.pug
-                include includes/category.pug
-                include includes/manufactoringProcess.pug
+            include includes/menu.pug
+            .flex-1.justify-center.px-8.py-4
+                .flex.flex-row.flex-wrap.justify-start.gap-4
+                    include includes/origin.pug
+                    include includes/color.pug
+                    include includes/type.pug
+                    include includes/rawMaterial.pug
+                    include includes/category.pug
+                    include includes/manufactoringProcess.pug
         footer.mt-2 
             p &copy; 2025 RSI Backend Data Management. All rights reserved.
         script(src="/script.js" type="module")
