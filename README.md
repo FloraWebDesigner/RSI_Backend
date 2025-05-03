@@ -1,6 +1,7 @@
 # RSI Project Backend - Data Management
 
 ## Deployed Link:
+https://rsi-backend-kl8gfthcr-floras-projects-0cf04884.vercel.app/apivercel/data
 https://rsi-backend-us1f.onrender.com/
 
 ## Project Overview

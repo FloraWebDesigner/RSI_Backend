@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/index.js",
+        "use": "@vercel/node",
+        "config": {
+          "includeFiles": [
+            "modules/**",
+            "package.json"
+          ],
+          "supportsESModules": true  
+        }
+      }
+    ],
+    "routes": [{
+    "src": "/apivercel/data",
+    "dest": "/api/index.js",
+    "headers": {
+      "Cache-Control": "no-store"
+    }
+  }],
+  "regions": ["hkg1"]
+  }

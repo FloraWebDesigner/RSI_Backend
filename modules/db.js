@@ -7,12 +7,19 @@ const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@${proc
 
 //MONGODB FUNCTIONS
 async function db() {
-    try {
-        await mongoose.connect(dbUrl);
-        return true; 
-    } catch (err) {
+    if (mongoose.connection.readyState !== 1) { 
+      try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+          readPreference: 'primary',
+          serverSelectionTimeoutMS: 5000
+        });
+        return true;
+      } catch (err) {
         console.error("DB Connection Error:", err);
+        return false;
+      }
     }
-}
+    return true;
+  }
 
 export default db;
