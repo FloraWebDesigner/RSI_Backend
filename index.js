@@ -15,8 +15,8 @@ import manufactoringProcessFunction from "./modules/manufactoringProcess.js";
 import swaggerUI from 'swagger-ui-express';
 import swaggerSpec from './swagger.js';
 
-// const swaggerUI = require(‘swagger-ui-express’);
-// const swaggerSpec = require(‘./swagger’);
+const swaggerUI = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
 //set up Express object and port
 const app = express();

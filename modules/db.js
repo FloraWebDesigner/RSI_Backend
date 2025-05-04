@@ -9,7 +9,7 @@ const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@${proc
 async function db() {
     if (mongoose.connection.readyState !== 1) { 
       try {
-        await mongoose.connect(process.env.MONGODB_URI, {
+        await mongoose.connect(dbUrl, {
           readPreference: 'primary',
           serverSelectionTimeoutMS: 5000
         });
